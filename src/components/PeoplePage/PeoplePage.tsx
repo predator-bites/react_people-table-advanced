@@ -25,7 +25,7 @@ export const PeoplePage: React.FC = () => {
   );
   const query = urlSearchParams.get('query');
   const sort = urlSearchParams.get('sort') as Sort;
-  const order = urlSearchParams.get('sortDirection') as OrderType;
+  const order = urlSearchParams.get('order') as OrderType;
 
   function compareFunc(
     elem1: string | number,

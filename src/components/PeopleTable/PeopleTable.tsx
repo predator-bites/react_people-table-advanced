@@ -3,7 +3,7 @@ import { Person } from '../../types';
 import { PersonLink } from '../PersonLink/PersonLink';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getSearchParams } from '../PeopleFilter/PeopleFilter';
-import { Sort, SortDirection } from '../PeoplePage/PeoplePage';
+import { Sort, OrderType } from '../PeoplePage/PeoplePage';
 import React from 'react';
 
 interface Props {
@@ -18,7 +18,7 @@ export const PeopleTable: React.FC<Props> = ({
   highlightedPersonSlug,
 }) => {
   const [urlSearchParams] = useSearchParams();
-  const sortDirection = urlSearchParams.get('sortDirection') as SortDirection;
+  const order = urlSearchParams.get('order') as OrderType;
   const sort = urlSearchParams.get('sort') as Sort;
 
   const getDirection = (sortParam: Sort) => {
@@ -59,8 +59,7 @@ export const PeopleTable: React.FC<Props> = ({
                       className={cn('fas', {
                         'fa-sort-up': sort === header.toLowerCase(),
                         'fa-sort-down':
-                          sortDirection === 'desc' &&
-                          sort === header.toLowerCase(),
+                          order === 'desc' && sort === header.toLowerCase(),
                         'fa-sort': sort !== header.toLowerCase(),
                       })}
                     />

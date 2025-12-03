@@ -6,7 +6,7 @@ import { Loader } from '../Loader';
 import { PeopleTable } from '../PeopleTable/PeopleTable';
 import { PeopleFilters } from '../PeopleFilter/PeopleFilter';
 
-export type SortDirection = 'desc' | null;
+export type OrderType = 'desc' | null;
 export type Sort = 'name' | 'sex' | 'born' | 'died' | null;
 
 export const PeoplePage: React.FC = () => {
@@ -25,12 +25,12 @@ export const PeoplePage: React.FC = () => {
   );
   const query = urlSearchParams.get('query');
   const sort = urlSearchParams.get('sort') as Sort;
-  const order = urlSearchParams.get('sortDirection') as SortDirection;
+  const order = urlSearchParams.get('sortDirection') as OrderType;
 
   function compareFunc(
     elem1: string | number,
     elem2: string | number,
-    direction: SortDirection,
+    direction: OrderType,
   ) {
     let copyElem1 = elem1;
     let copyElem2 = elem2;

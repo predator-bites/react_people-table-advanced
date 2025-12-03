@@ -1,6 +1,6 @@
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import cn from 'classnames';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 type SearchParam = {
   [key: string]: string | null | string[];
@@ -53,6 +53,7 @@ function isCenturyActive(urlSearchParams: URLSearchParams, century: string) {
 export const PeopleFilters = () => {
   const { search } = useLocation();
   const [urlSearchParams, setUrlSearchParams] = useSearchParams();
+  const [query, setQuery] = useState(urlSearchParams.get('query') || '');
   const timerId = useRef(0);
 
   const debounce = (callback: () => void, timeout: number) => {
@@ -62,12 +63,13 @@ export const PeopleFilters = () => {
   };
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.trim().toLowerCase();
+
+    setQuery(value);
+
     debounce(() => {
       setUrlSearchParams(
-        getSearchParams(
-          { query: event.target.value.trim().toLowerCase() },
-          urlSearchParams.toString(),
-        ),
+        getSearchParams({ query: value }, urlSearchParams.toString()),
       );
     }, 500);
   };
@@ -98,6 +100,7 @@ export const PeopleFilters = () => {
             className="input"
             placeholder="Search"
             onChange={handleQueryChange}
+            value={query}
           />
 
           <span className="icon is-left">
